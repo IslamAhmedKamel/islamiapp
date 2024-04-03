@@ -32,28 +32,28 @@ class _SoraDetailsState extends State<SoraDetails> {
           appBar: AppBar(
             title: Text(
               'سورة ${args.soraName}',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: MyTheme.primaryStyle,
             ),
           ),
           body: Card(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
-                side: BorderSide(
+                side: const BorderSide(
                   color: Colors.transparent,
                 )),
             elevation: 20,
-            margin: EdgeInsets.all(10),
-            color:Colors.black12,
+            margin: const EdgeInsets.all(10),
+            color: Colors.blueGrey,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListView.separated(
                   itemBuilder: (context, index) => Text(
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: MyTheme.secondStyle,
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.center,
-                    ' ${soraContent[index]} 🕌',
+                    ' ${soraContent[index]} 🕋',
                   ),
                   separatorBuilder: (BuildContext context, int index) {
                     return const Divider(color: Colors.white);

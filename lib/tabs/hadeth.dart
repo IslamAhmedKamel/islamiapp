@@ -1,9 +1,10 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../hadeth_Details.dart';
 import '../hadeth_model.dart';
 import '../my_theme.dart';
+
 class HadethTab extends StatefulWidget {
   @override
   State<HadethTab> createState() => _HadethTabState();
@@ -30,27 +31,31 @@ class _HadethTabState extends State<HadethTab> {
           ),
           Expanded(
             child: ListView.separated(
-                itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context,HadethDetails.routName,arguments: allAhadeth[index] );
-                  },
-                  child: Text(allAhadeth[index].title,
-                    textAlign: TextAlign.center  ,),
+              itemBuilder: (context, index) => InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, HadethDetails.routName,
+                      arguments: allAhadeth[index]);
+                },
+                child: Text(
+                  ' ${allAhadeth[index].title} - ${index + 1}',
+                  textAlign: TextAlign.center,
+                  style: MyTheme.secondStyle,
                 ),
-                separatorBuilder: (context, index) => const Divider(
-                      thickness: 1,
-                      indent: 40,
-                      endIndent: 40,
-                      color: MyTheme.MyColor,
-                    ),
-                itemCount: allAhadeth.length,
-
+              ),
+              separatorBuilder: (context, index) => const Divider(
+                thickness: 1,
+                indent: 40,
+                endIndent: 40,
+                color: MyTheme.MyColor,
+              ),
+              itemCount: 50,
             ),
           ),
         ],
       ),
     );
   }
+
   void loadHadeth() async {
     rootBundle.loadString('assets/files/ahadeth.txt').then((ahadeth) {
       List<String> ahadethList = ahadeth.split('#');

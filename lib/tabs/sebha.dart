@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../my_theme.dart';
 
 class SebhaTab extends StatefulWidget {
@@ -33,7 +34,10 @@ class _SebhaTabState extends State<SebhaTab> {
             children: [
               Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: const Text('عدد التسبيحات')),
+                  child: const Text(
+                    'عدد التسبيحات',
+                    style: MyTheme.secondStyle,
+                  )),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 padding:

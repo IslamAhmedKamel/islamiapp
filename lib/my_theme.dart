@@ -3,7 +3,16 @@ import 'package:flutter/material.dart';
 class MyTheme {
   static const Color MyColor = Color(0xFFB7935F);
   static const Color blackColor = Color(0xff242424);
-
+  static const TextStyle primaryStyle = TextStyle(
+    fontSize: 30,
+    color: MyTheme.blackColor,
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle secondStyle = TextStyle(
+    fontSize: 22,
+    color: MyTheme.blackColor,
+    fontWeight: FontWeight.w600,
+  );
   static ThemeData lightTheme = ThemeData(
 
     // textTheme: TextTheme(
@@ -27,6 +36,7 @@ class MyTheme {
       centerTitle: true,
       elevation: 0.0,
       backgroundColor: Colors.transparent,
+      titleTextStyle: MyTheme.primaryStyle,
     ),
     scaffoldBackgroundColor: Colors.transparent,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(

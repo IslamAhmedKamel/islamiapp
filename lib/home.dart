@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:quranapp/my_theme.dart';
 import 'package:quranapp/tabs/hadeth.dart';
 import 'package:quranapp/tabs/quran.dart';
 import 'package:quranapp/tabs/radio.dart';
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             title: Text(
               'Islami',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: MyTheme.primaryStyle,
             ),
           ),
           bottomNavigationBar: BottomNavigationBar(

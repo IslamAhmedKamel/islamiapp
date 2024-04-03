@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../my_theme.dart';
 import '../soraModel.dart';
 import '../sora_Details.dart';
@@ -148,11 +149,9 @@ class QuranTab extends StatelessWidget {
                     child: Text(
                       soraName[index],
                       textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(fontWeight: FontWeight.w200),
-                    ));
+                    style: MyTheme.primaryStyle,
+                  ),
+                );
               },
               separatorBuilder: (context, index) => const Divider(
                 color: MyTheme.MyColor,
