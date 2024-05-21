@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:quranapp/my_theme.dart';
 import 'package:quranapp/tabs/hadeth.dart';
@@ -6,6 +5,7 @@ import 'package:quranapp/tabs/quran.dart';
 import 'package:quranapp/tabs/radio.dart';
 import 'package:quranapp/tabs/sebha.dart';
 import 'package:quranapp/tabs/setting.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routName = 'home';
@@ -35,10 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
           fit: BoxFit.fill,
         ),
         Scaffold(
-
           appBar: AppBar(
             title: Text(
-              'Islami',
+              AppLocalizations.of(context)!.appTitle,
               style: MyTheme.primaryStyle,
             ),
           ),
@@ -48,29 +47,34 @@ class _HomeScreenState extends State<HomeScreen> {
               index = value;
               setState(() {});
             },
-            items: const [
+            items:   [
               BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage('assets/images/icon_quran.png')),
-                  label: 'Quran',
-                  tooltip: 'القرآن'),
+                icon: ImageIcon(AssetImage('assets/images/icon_quran.png')),
+                label: AppLocalizations.of(context)!.quran,
+                tooltip: 'القرآن',
+              ),
               BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage('assets/images/icon_sebha.png')),
-                  label: 'Sebhah',
-                  tooltip: 'السبحة'),
+                icon: ImageIcon(AssetImage('assets/images/icon_sebha.png')),
+                label: AppLocalizations.of(context)!.sebha,
+                tooltip: 'السبحة',
+              ),
               BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage('assets/images/icon_radio.png'),
-                  ),
-                  label: 'Radio',
-                  tooltip: "الراديو"),
+                icon: ImageIcon(
+                  AssetImage('assets/images/icon_radio.png'),
+                ),
+                label: AppLocalizations.of(context)!.radio,
+                tooltip: "الراديو",
+              ),
               BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage('assets/images/icon_hadeth.png')),
-                  label: 'Ahadeth',
-                  tooltip: ' الاحاديث'),
+                icon: ImageIcon(AssetImage('assets/images/icon_hadeth.png')),
+                label: AppLocalizations.of(context)!.ahadeths,
+                tooltip: ' الاحاديث',
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  label: 'settings',
-                  tooltip: 'الاعدادات'),
+                icon: Icon(Icons.settings),
+                label: AppLocalizations.of(context)!.setting,
+                tooltip: 'الاعدادات',
+              ),
             ],
           ),
           body: tabs[index],

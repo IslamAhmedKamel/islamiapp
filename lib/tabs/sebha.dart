@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../my_theme.dart';
 
@@ -34,8 +35,9 @@ class _SebhaTabState extends State<SebhaTab> {
             children: [
               Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: const Text(
-                    'عدد التسبيحات',
+                  child:   Text(
+                  
+                    AppLocalizations.of(context)!.tsbeh,
                     style: MyTheme.secondStyle,
                   )),
               Container(
@@ -66,19 +68,19 @@ class _SebhaTabState extends State<SebhaTab> {
           const SizedBox(
             height: 30,
           ),
-           IconButton(
+          IconButton(
               padding: EdgeInsets.all(0),
               onPressed: () {
-                  index++;
-                  if (index == 34) {
-                    index = 0;
-                    num++;
-                    if (num == tathbeh.length) {
-                      num = 0;
-                    }
+                index++;
+                if (index == 34) {
+                  index = 0;
+                  num++;
+                  if (num == tathbeh.length) {
+                    num = 0;
                   }
-                  setState(() {});
-                },
+                }
+                setState(() {});
+              },
               icon: Image.asset('assets/images/body_sebha_logo.png'))
         ],
       ),

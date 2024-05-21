@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../my_theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RadioTab extends StatelessWidget {
   @override
@@ -10,8 +11,8 @@ class RadioTab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
          children: [
           Image.asset('assets/images/radio_image.png'),
-          Text(
-            'إذاعة القرآن الكريم',
+          Text( 
+            AppLocalizations.of(context)!.radioHoly,
             style: MyTheme.secondStyle,
           ),
           Row(

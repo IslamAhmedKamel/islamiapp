@@ -1,8 +1,10 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import '../my_theme.dart';
 import '../soraModel.dart';
 import '../sora_Details.dart';
+
 class QuranTab extends StatelessWidget {
   List<String> soraName = [
     "الفاتحه",
@@ -131,8 +133,8 @@ class QuranTab extends StatelessWidget {
             color: MyTheme.MyColor,
           ),
           Text(
-            "إسم السورة",
-            style: Theme.of(context).textTheme.bodySmall,
+            AppLocalizations.of(context)!.suraName,
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 30),
           ),
           const Divider(
             thickness: 4,
@@ -142,13 +144,19 @@ class QuranTab extends StatelessWidget {
             child: ListView.separated(
               itemBuilder: (context, index) {
                 return InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, SoraDetails.routName,
-                          arguments: SoraModel(soraName[index], index));
-                    },
-                    child: Text(
-                      soraName[index],
-                      textAlign: TextAlign.center,
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      SoraDetails.routName,
+                      arguments: SoraModel(
+                        soraName[index],
+                        index,
+                      ),
+                    );
+                  },
+                  child: Text(
+                    soraName[index],
+                    textAlign: TextAlign.center,
                     style: MyTheme.primaryStyle,
                   ),
                 );
