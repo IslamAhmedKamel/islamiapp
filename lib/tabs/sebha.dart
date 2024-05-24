@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:quranapp/providers/provider_settings.dart';
 
 import '../my_theme.dart';
 
@@ -24,6 +26,7 @@ class _SebhaTabState extends State<SebhaTab> {
 
   @override
   Widget build(BuildContext context) {
+    var ProvSettings = Provider.of<ProviderSettings>(context);
     return Center(
       child: Column(
         children: [
@@ -34,17 +37,30 @@ class _SebhaTabState extends State<SebhaTab> {
           Column(
             children: [
               Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  child:   Text(
-                  
-                    AppLocalizations.of(context)!.tsbeh,
-                    style: MyTheme.secondStyle,
-                  )),
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  AppLocalizations.of(context)!.tsbeh,
+                  style: TextStyle(
+                    fontFamily: 'PlaypenSans',
+                    color: ProvSettings.theme == ThemeMode.light
+                        ? Colors.black
+                        : Colors.white,
+                  ),
+                ),
+              ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Text('$index'),
+                child: Text(
+                  '$index',
+                  style: TextStyle(
+                    fontFamily: 'Pacifico',
+                    color: ProvSettings.theme == ThemeMode.light
+                        ? Colors.black
+                        : Colors.white,
+                  ),
+                ),
                 decoration: BoxDecoration(
                   color: MyTheme.MyColor,
                   borderRadius: BorderRadius.circular(10),
@@ -56,7 +72,10 @@ class _SebhaTabState extends State<SebhaTab> {
                 child: Text(
                   tathbeh[num],
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontFamily: 'PlaypenSans',
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 decoration: BoxDecoration(
                   color: MyTheme.MyColor,

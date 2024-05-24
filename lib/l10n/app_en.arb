@@ -1,5 +1,5 @@
 {
-    "appTitle": "Islami",
+  "appTitle": "Islami",
   "suraName": "SuraName",
   "ahadeths": "Ahadeths",
   "english": "English",
@@ -13,6 +13,6 @@
   "radio": "Radio",
   "radioHoly": "Holy Quran Radio",
   "tsbeh": "Number of praises",
-   "setting": "Settings"
- 
+  "setting": "Settings",
+  "devApp": "info to Developer"
 }

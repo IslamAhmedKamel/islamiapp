@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; 
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:quranapp/hadeth_Details.dart';
 import 'package:quranapp/hadeth_model.dart';
+import 'package:quranapp/providers/provider_settings.dart';
 
 class HadethTab extends StatefulWidget {
   const HadethTab({super.key});
@@ -40,6 +42,7 @@ class _HadethTabState extends State<HadethTab> {
 
   @override
   Widget build(BuildContext context) {
+    var ProvSettings = Provider.of<ProviderSettings>(context);
     if (flag == true) {
       loadeHadeth();
     }
@@ -54,7 +57,12 @@ class _HadethTabState extends State<HadethTab> {
         Divider(),
         Text(
           AppLocalizations.of(context)!.ahadeths,
-          style: TextStyle(fontSize: 26,fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontFamily: 'PlaypenSans',
+            color: ProvSettings.theme == ThemeMode.light
+                ? Colors.black
+                : Colors.white,
+          ),
         ),
         Divider(),
         Expanded(
@@ -72,7 +80,12 @@ class _HadethTabState extends State<HadethTab> {
                 child: Center(
                   child: Text(
                     allAhadethList[index].name,
-                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontFamily: 'PlaypenSans',
+                      color: ProvSettings.theme == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
+                    ),
                   ),
                 ),
               ),

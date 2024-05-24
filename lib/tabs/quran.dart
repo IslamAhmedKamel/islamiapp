@@ -1,5 +1,7 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:quranapp/providers/provider_settings.dart';
 
 import '../my_theme.dart';
 import '../soraModel.dart';
@@ -122,8 +124,10 @@ class QuranTab extends StatelessWidget {
     "الفلق",
     "الناس"
   ];
+
   @override
   Widget build(BuildContext context) {
+    var ProvSettings = Provider.of<ProviderSettings>(context);
     return Center(
       child: Column(
         children: [
@@ -134,7 +138,12 @@ class QuranTab extends StatelessWidget {
           ),
           Text(
             AppLocalizations.of(context)!.suraName,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 30),
+            style: TextStyle(
+              fontFamily: 'PlaypenSans',
+              color: ProvSettings.theme == ThemeMode.light
+                  ? Colors.black
+                  : Colors.white,
+            ),
           ),
           const Divider(
             thickness: 4,
@@ -157,7 +166,12 @@ class QuranTab extends StatelessWidget {
                   child: Text(
                     soraName[index],
                     textAlign: TextAlign.center,
-                    style: MyTheme.primaryStyle,
+                    style: TextStyle(
+                      fontFamily: 'Pacifico',
+                      color: ProvSettings.theme == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
+                    ),
                   ),
                 );
               },
