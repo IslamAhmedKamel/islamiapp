@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:quranapp/my_theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:quranapp/providers/provider_settings.dart';
 import 'package:quranapp/tabs/hadeth.dart';
 import 'package:quranapp/tabs/quran.dart';
 import 'package:quranapp/tabs/radio.dart';
 import 'package:quranapp/tabs/sebha.dart';
 import 'package:quranapp/tabs/setting.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routName = 'home';
@@ -25,12 +26,16 @@ class _HomeScreenState extends State<HomeScreen> {
     HadethTab(),
     Setting()
   ];
+
   @override
   Widget build(BuildContext context) {
+    var ProvSettings = Provider.of<ProviderSettings>(context);
     return Stack(
       children: [
         Image.asset(
-          'assets/images/default_bg.png',
+          ProvSettings.theme == ThemeMode.light
+              ? 'assets/images/default_bg.png'
+              : 'assets/images/dark_bg.png',
           width: double.infinity,
           fit: BoxFit.fill,
         ),
@@ -38,7 +43,13 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             title: Text(
               AppLocalizations.of(context)!.appTitle,
-              style: MyTheme.primaryStyle,
+              style: TextStyle(
+                fontFamily: 'PlaypenSans',
+                fontSize: 30,
+                color: ProvSettings.theme == ThemeMode.light
+                    ? Colors.black
+                    : Colors.white,
+              ),
             ),
           ),
           bottomNavigationBar: BottomNavigationBar(
@@ -47,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
               index = value;
               setState(() {});
             },
-            items:   [
+            items: [
               BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/images/icon_quran.png')),
                 label: AppLocalizations.of(context)!.quran,
