@@ -1,5 +1,7 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:quranapp/providers/provider_settings.dart';
 import 'package:quranapp/soraModel.dart';
 
 import 'my_theme.dart';
@@ -17,14 +19,17 @@ class _SoraDetailsState extends State<SoraDetails> {
 
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)?.settings.arguments as  SoraModel;
+    var args = ModalRoute.of(context)?.settings.arguments as SoraModel;
+    var ProvSettings = Provider.of<ProviderSettings>(context);
     if (soraContent.isEmpty) {
       loadFile(args.index);
     }
     return Stack(
       children: [
         Image.asset(
-          'assets/images/default_bg.png',
+          ProvSettings.theme == ThemeMode.light
+              ? 'assets/images/default_bg.png'
+              : 'assets/images/dark_bg.png',
           width: double.infinity,
           fit: BoxFit.fill,
         ),
@@ -32,31 +37,39 @@ class _SoraDetailsState extends State<SoraDetails> {
           appBar: AppBar(
             title: Text(
               'سورة ${args.soraName}',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: MyTheme.primaryStyle,
             ),
           ),
           body: Card(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
-                side: BorderSide(
+                side: const BorderSide(
                   color: Colors.transparent,
                 )),
             elevation: 20,
-            margin: EdgeInsets.all(10),
-            color:Colors.black12,
+            margin: const EdgeInsets.all(10),
+            color: Colors.blueGrey,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListView.separated(
                   itemBuilder: (context, index) => Text(
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: TextStyle(
+                      color: ProvSettings.theme == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
+                    ),
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.center,
-                    ' ${soraContent[index]} 🕌',
+                    ' ${soraContent[index]} 🕋',
                   ),
                   separatorBuilder: (BuildContext context, int index) {
-                    return const Divider(color: Colors.white);
+                    return Divider(
+                      color: ProvSettings.theme == ThemeMode.light
+                          ? Colors.white
+                          : Colors.black,
+                    );
                   },
                   itemCount: soraContent.length,
                 ),
@@ -71,6 +84,6 @@ class _SoraDetailsState extends State<SoraDetails> {
   void loadFile(int index) async {
     sora = await rootBundle.loadString('assets/files/${index + 1}.txt');
     soraContent = sora.trim().split('\n');
-     setState(() {});
+    setState(() {});
   }
 }

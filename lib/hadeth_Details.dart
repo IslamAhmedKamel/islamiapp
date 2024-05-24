@@ -1,51 +1,56 @@
 import 'package:flutter/material.dart';
-
-import 'hadeth_model.dart';
+import 'package:provider/provider.dart';
+import 'package:quranapp/hadeth_model.dart';
+import 'package:quranapp/providers/provider_settings.dart';
 
 class HadethDetails extends StatelessWidget {
- static const String routName='hadethDatails';
+  const HadethDetails({super.key});
+
+  static const routName = 'hadethDetails';
+
   @override
   Widget build(BuildContext context) {
-    var ages=ModalRoute.of(context)?.settings.arguments as HadethModel;
-    return  Stack(
-      children:[
-        Image.asset(
-          'assets/images/default_bg.png',
-          width: double.infinity,
+    var ProvSettings = Provider.of<ProviderSettings>(context);
+    var args = ModalRoute.of(context)!.settings.arguments as HadethModel;
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
           fit: BoxFit.fill,
+          image: AssetImage(
+            ProvSettings.theme == ThemeMode.light
+                ? 'assets/images/default_bg.png'
+                : 'assets/images/dark_bg.png',
+          ),
         ),
-        Scaffold(
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text(ages.title),
+          title: Text(
+            args.name,
+          ),
         ),
-          body: Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-                side: BorderSide(
-                  color: Colors.transparent,
-                )),
-            elevation: 20,
-            margin: EdgeInsets.all(10),
-            color:Colors.black12,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(
-                  itemBuilder: (context, index) => Text(
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    textDirection: TextDirection.rtl,
-                    textAlign: TextAlign.center,
-                    ' ${ages.content[index]}',
-                  ),
-                  itemCount: ages.content.length,
+        body: Card(
+          color: const Color.fromARGB(255, 146, 163, 172),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(13.0),
+            child: ListView.builder(
+              itemBuilder: (context, index) => Text(
+                args.content[index],
+                style: TextStyle(
+                  color: ProvSettings.theme == ThemeMode.light
+                      ? Colors.black
+                      : Colors.white,
                 ),
               ),
+              itemCount: args.content.length,
             ),
           ),
+        ),
       ),
-
-      ]
     );
   }
 }

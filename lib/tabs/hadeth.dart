@@ -1,71 +1,103 @@
- import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// ignore_for_file: prefer_const_constructors, unused_local_variable
 
-import '../hadeth_Details.dart';
-import '../hadeth_model.dart';
-import '../my_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:quranapp/hadeth_Details.dart';
+import 'package:quranapp/hadeth_model.dart';
+import 'package:quranapp/providers/provider_settings.dart';
+
 class HadethTab extends StatefulWidget {
+  const HadethTab({super.key});
+  static const String routName = 'hadethScreen';
+
   @override
   State<HadethTab> createState() => _HadethTabState();
 }
 
 class _HadethTabState extends State<HadethTab> {
-  List<HadethModel> allAhadeth = [];
+  List<HadethModel> allAhadethList = [];
+  bool flag = true;
+  String title = '';
+  List<String> ahadethList = [];
+  List<String> content = [];
+  loadeHadeth() async {
+    String allAhadeth = await rootBundle.loadString('assets/files/ahadeth.txt');
+    ahadethList = allAhadeth.split('#');
+    for (var i = 0; i < ahadethList.length; i++) {
+      String hadethOne = ahadethList[i];
+      List<String> hadethOneLines = ahadethList[i].trim().split('\n');
+      // String title = hadethOne[0];
+      title = hadethOneLines[0];
+      hadethOneLines.removeAt(0);
+      // List<String> content = hadethOne;
+      content = hadethOneLines;
+      HadethModel hadethModel = HadethModel(title, content);
+      allAhadethList.add(hadethModel);
+    }
+    setState(() {});
+    flag = false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    loadHadeth();
-    return Center(
-      child: Column(
-        children: [
-          Image.asset('assets/images/hadeth_logo.png'),
-          Divider(
-            color: MyTheme.MyColor,
-            thickness: 2,
-          ),
-          Text('الأحاديث'),
-          Divider(
-            color: MyTheme.MyColor,
-            thickness: 2,
-          ),
-          Expanded(
-            child: ListView.separated(
-                itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context,HadethDetails.routName,arguments: allAhadeth[index] );
-                  },
-                  child: Text(allAhadeth[index].title,
-                    textAlign: TextAlign.center  ,),
-                ),
-                separatorBuilder: (context, index) => const Divider(
-                      thickness: 1,
-                      indent: 40,
-                      endIndent: 40,
-                      color: MyTheme.MyColor,
-                    ),
-                itemCount: allAhadeth.length,
+    var ProvSettings = Provider.of<ProviderSettings>(context);
+    if (flag == true) {
+      loadeHadeth();
+    }
 
-            ),
+    return Column(
+      children: [
+        Center(
+          child: Image.asset(
+            'assets/images/hadeth_logo.png',
           ),
-        ],
-      ),
+        ),
+        Divider(),
+        Text(
+          AppLocalizations.of(context)!.ahadeths,
+          style: TextStyle(
+            fontFamily: 'PlaypenSans',
+            color: ProvSettings.theme == ThemeMode.light
+                ? Colors.black
+                : Colors.white,
+          ),
+        ),
+        Divider(),
+        Expanded(
+          child: ListView.separated(
+            itemBuilder: (context, index) => InkWell(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  HadethDetails.routName,
+                  arguments: allAhadethList[index],
+                );
+              },
+              child: Container(
+                padding: EdgeInsets.all(4),
+                child: Center(
+                  child: Text(
+                    allAhadethList[index].name,
+                    style: TextStyle(
+                      fontFamily: 'PlaypenSans',
+                      color: ProvSettings.theme == ThemeMode.light
+                          ? Colors.black
+                          : Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            separatorBuilder: (context, index) => Divider(
+              height: 0,
+              color: Colors.brown,
+            ),
+            itemCount: allAhadethList.length,
+          ),
+        )
+      ],
     );
-  }
-  void loadHadeth() async {
-    rootBundle.loadString('assets/files/ahadeth.txt').then((ahadeth) {
-      List<String> ahadethList = ahadeth.split('#');
-      for (int i = 0; i < ahadethList.length; i++) {
-        String hadethOne = ahadethList[i];
-        List<String> hadethOneLins = hadethOne.trim().split('\n');
-        String title = hadethOneLins[0];
-        hadethOneLins.removeAt(0);
-        List<String> content = hadethOneLins;
-        HadethModel hadethModel = HadethModel(title, content);
-        allAhadeth.add(hadethModel);
-      }
-      setState(() {});
-    });
-    // soraContent = sora.trim().split('\n');
-    // setState(() {});
   }
 }
